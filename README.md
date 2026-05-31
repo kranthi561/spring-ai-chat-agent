@@ -3,13 +3,13 @@
 > A production-ready Spring Boot + Spring AI backend demonstrating enterprise patterns for AI-powered applications: RAG, function calling, JWT auth, streaming, and full observability.
 
 ---
-## Chat with AI Agent:
+## Chat with AI Agent: - [Images](https://github.com/kranthi561/spring-ai-chat-agent/tree/dev/docs)
 <img width="2978" height="1458" alt="image" src="https://github.com/user-attachments/assets/fc45ed80-a96d-47d1-b347-e593cc8cd790" />
 
 
 ---
-
 ## Architecture
+
 <img width="1472" height="1440" alt="image" src="https://github.com/user-attachments/assets/87693d9e-bb9e-487c-822b-3449d8813a45" />
 
 ```
