@@ -10,6 +10,7 @@
 ---
 
 ## Architecture
+<img width="1472" height="1440" alt="image" src="https://github.com/user-attachments/assets/87693d9e-bb9e-487c-822b-3449d8813a45" />
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
