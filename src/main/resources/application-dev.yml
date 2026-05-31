@@ -1,0 +1,53 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:aiengineering}
+    username: ${DB_USER:aiengineering}
+    password: ${DB_PASSWORD:aiengineering}
+    hikari:
+      maximum-pool-size: 10
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:changeme}
+      chat:
+        options:
+          model: ${OPENAI_CHAT_MODEL:gpt-4o-mini}
+          temperature: ${OPENAI_TEMPERATURE:0.7}
+          max-tokens: ${OPENAI_MAX_TOKENS:2048}
+    vectorstore:
+      pgvector:
+        initialize-schema: true
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+        dimensions: 1536
+
+app:
+  web-search:
+    tavily:
+      api-key: ${TAVILY_API_KEY:}
+  security:
+    jwt:
+      secret: ${JWT_SECRET:dev-only-do-not-use-in-prod-256-bit-minimum-secret-key!!}
+      expiration-seconds: 86400
+
+logging:
+  level:
+    com.aiengineering: DEBUG
+    org.springframework.ai: DEBUG
+    org.springframework.security: INFO
+  pattern:
+    # Dev console overrides the base pattern with ANSI colours for readability.
+    # %clr(...){colour} wraps a token in the given ANSI colour.
+    # Spring Boot strips colour codes automatically when output is not a real terminal.
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(--){faint} %clr([%15.15t]){faint} %clr([%X{requestId}]){yellow} %clr(%-40.40logger{39}){cyan}%clr(:%4L){faint} %clr(:){faint} %m%n%wEx"

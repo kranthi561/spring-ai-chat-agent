@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: spring-ai-engineering
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+server:
+  port: ${SERVER_PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+logging:
+  level:
+    root: INFO
+    com.aiengineering: ${LOG_LEVEL:INFO}
+  pattern:
+    # Console pattern — fields in order:
+    #   %d{...}          timestamp with milliseconds
+    #   %5p              log level right-padded to 5 chars (INFO, DEBUG, WARN, ERROR)
+    #   ${PID:- }        OS process ID (useful when multiple instances log to the same sink)
+    #   ---              visual separator
+    #   [%15.15t]        thread name, truncated/padded to 15 chars
+    #   %-40.40logger{39} logger class name (package abbreviated), fixed 40-char column
+    #   :%4L             source line number (4 chars); uses stack introspection — acceptable cost for dev
+    #   :                separator
+    #   %m               the log message
+    #   %n               platform line separator
+    #   %wEx             exception stack trace with Spring Boot's whitespace-trimming wrapper
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } --- [%15.15t] [%X{requestId}] %-40.40logger{39}:%4L : %m%n%wEx"
+
+    # File pattern — same as console but without ANSI colour codes so log files stay readable
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } --- [%15.15t] [%X{requestId}] %-40.40logger{39}:%4L : %m%n%wEx"
+
+app:
+  rate-limit:
+    auth-requests-per-minute: ${RATE_LIMIT_AUTH:10}
+    api-requests-per-minute: ${RATE_LIMIT_API:60}
+    chat-requests-per-minute: ${RATE_LIMIT_CHAT:20}
+    window-seconds: ${RATE_LIMIT_WINDOW:60}
